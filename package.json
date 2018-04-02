@@ -1,7 +1,7 @@
 {
   "name": "cli-g31",
   "version": "1.0.0",
-  "description": "",
+  "description": "cli-g31",
   "main": "index.js",
   "bin": {
     "gendiff": "dist/bin/gendiff.js"
@@ -18,6 +18,10 @@
   ],
   "author": "",
   "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gabos31/project-lvl2-s237.git"
+  },
   "devDependencies": {
     "babel-cli": "*",
     "babel-core": "*",
@@ -27,5 +31,8 @@
     "eslint": "*",
     "eslint-config-airbnb-base": "*",
     "eslint-plugin-import": "*"
+  },
+  "dependencies": {
+    "commander": "^2.15.1"
   }
 }

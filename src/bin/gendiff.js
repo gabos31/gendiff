@@ -1,3 +1,4 @@
 #!/usr/bin/env node
+import comm from '..';
 
-console.log('11111');
+comm.parse(process.argv);
