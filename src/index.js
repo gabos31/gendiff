@@ -1,6 +1,7 @@
 import commander from 'commander';
 import fs from 'fs';
 import _ from 'lodash';
+// import yaml from 'js-yaml';
 
 const gendiff = (path1, path2) => {
   const obj1 = JSON.parse(fs.readFileSync(path1, 'utf8'));
