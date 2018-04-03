@@ -1,13 +1,13 @@
 {
   "name": "cli-g31",
-  "version": "1.0.0",
+  "version": "1.0.3",
   "description": "cli-g31",
   "main": "index.js",
   "bin": {
     "gendiff": "dist/bin/gendiff.js"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
     "babel-node": "babel-node",
     "prepublishOnly": "npm run build",
     "eslint": "eslint",
@@ -16,6 +16,9 @@
   "files": [
     "dist"
   ],
+  "jest": {
+    "testEnvironment": "node"
+  },
   "author": "",
   "license": "ISC",
   "repository": {
@@ -24,15 +27,19 @@
   },
   "devDependencies": {
     "babel-cli": "*",
-    "babel-core": "*",
+    "babel-core": "^6.26.0",
     "babel-eslint": "*",
+    "babel-jest": "^22.4.3",
     "babel-preset-env": "*",
     "babel-preset-stage-0": "*",
     "eslint": "*",
     "eslint-config-airbnb-base": "*",
-    "eslint-plugin-import": "*"
+    "eslint-plugin-import": "*",
+    "jest": "^22.4.3",
+    "regenerator-runtime": "^0.11.1"
   },
   "dependencies": {
-    "commander": "^2.15.1"
+    "commander": "^2.15.1",
+    "lodash": "^4.17.5"
   }
 }
