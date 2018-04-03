@@ -1,4 +1,3 @@
-import commander from 'commander';
 import fs from 'fs';
 import _ from 'lodash';
 import path from 'path';
@@ -10,39 +9,30 @@ const parsers = {
   '.yml': safeLoad,
 };
 
-const parsing = (root) => {
+const toObject = (root, data) => {
   const ext = path.extname(root);
   const parse = parsers[ext];
-  return parse(fs.readFileSync(root, 'utf8'));
+  return parse(data);
 };
 
 const gendiff = (path1, path2) => {
-  const obj1 = parsing(path1);
-  const obj2 = parsing(path2);
-  const result1 = Object.keys(obj2).reduce((acc, key) => {
-    if (_.has(obj1, key)) {
-      if (obj2[key] === obj1[key]) {
-        return [`\n    ${key}: ${obj1[key]}`, ...acc];
+  const getData = source => fs.readFileSync(source, 'utf8');
+  const obj1 = toObject(path1, getData(path1));
+  const obj2 = toObject(path2, getData(path2));
+  const unionObjKeys = _.union(Object.keys(obj1), Object.keys(obj2));
+  const result = unionObjKeys.map((key) => {
+    if (_.has(obj1, key) && _.has(obj2, key)) {
+      if (obj1[key] === obj2[key]) {
+        return [`\n    ${key}: ${obj1[key]}`];
       }
-      return [`\n  + ${key}: ${obj2[key]}`, `\n  - ${key}: ${obj1[key]}`, ...acc];
+      return [`\n  + ${key}: ${obj2[key]}\n  - ${key}: ${obj1[key]}`];
     }
-    return [...acc, `\n  + ${key}: ${obj2[key]}`];
+    if (!_.has(obj1, key) && _.has(obj2, key)) {
+      return [`\n  + ${key}: ${obj2[key]}`];
+    }
+    return [`\n  - ${key}: ${obj1[key]}`];
   }, []);
-  const result2 = Object.keys(obj1).reduce((acc, key) => {
-    if (!_.has(obj2, key)) {
-      return [...acc, `\n  - ${key}: ${obj1[key]}`];
-    }
-    return acc;
-  }, result1);
-  return ['{', ...result2, '\n}'].join('');
+  return ['{', ...result, '\n}'].join('');
 };
-
-export const comm = commander
-  .version('1.0.0')
-  .description('Compares two configuration files and shows a difference.')
-  .arguments('<firstConfig> <secondConfig>')
-  .option('-f, --format [type]', 'Output format')
-  .action((firstConfig, secondConfig) =>
-    console.log(gendiff(firstConfig, secondConfig)));
 
 export default gendiff;

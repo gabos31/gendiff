@@ -1,13 +1,13 @@
 {
   "name": "cli-g31",
-  "version": "1.0.5",
+  "version": "1.0.8",
   "description": "cli-g31",
   "main": "dist/index.js",
   "bin": {
     "gendiff": "dist/bin/gendiff.js"
   },
   "scripts": {
-    "test": "jest --watch",
+    "test": "jest",
     "babel-node": "babel-node",
     "prepublishOnly": "npm run build",
     "eslint": "eslint",

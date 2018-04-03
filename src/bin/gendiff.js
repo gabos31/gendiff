@@ -1,4 +1,12 @@
 #!/usr/bin/env node
-import { comm } from '..';
+import commander from 'commander';
+import gendiff from '..';
 
-comm.parse(process.argv);
+commander
+  .version('1.0.0')
+  .description('Compares two configuration files and shows a difference.')
+  .arguments('<firstConfig> <secondConfig>')
+  .option('-f, --format [type]', 'Output format')
+  .action((firstConfig, secondConfig) =>
+    console.log(gendiff(firstConfig, secondConfig)))
+  .parse(process.argv);
