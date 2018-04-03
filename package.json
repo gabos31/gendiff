@@ -1,8 +1,8 @@
 {
   "name": "cli-g31",
-  "version": "1.0.3",
+  "version": "1.0.5",
   "description": "cli-g31",
-  "main": "index.js",
+  "main": "dist/index.js",
   "bin": {
     "gendiff": "dist/bin/gendiff.js"
   },
@@ -35,6 +35,7 @@
     "eslint": "*",
     "eslint-config-airbnb-base": "*",
     "eslint-plugin-import": "*",
+    "eslint-plugin-jest": "^21.15.0",
     "jest": "^22.4.3",
     "regenerator-runtime": "^0.11.1"
   },

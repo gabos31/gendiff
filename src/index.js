@@ -2,7 +2,7 @@ import commander from 'commander';
 import fs from 'fs';
 import _ from 'lodash';
 
-export const gendiff = (path1, path2) => {
+const gendiff = (path1, path2) => {
   const obj1 = JSON.parse(fs.readFileSync(path1, 'utf8'));
   const obj2 = JSON.parse(fs.readFileSync(path2, 'utf8'));
   const result1 = Object.keys(obj2).reduce((acc, key) => {
@@ -23,7 +23,7 @@ export const gendiff = (path1, path2) => {
   return ['{', ...result2, '\n}'].join('');
 };
 
-const comm = commander
+export const comm = commander
   .version('1.0.0')
   .description('Compares two configuration files and shows a difference.')
   .arguments('<firstConfig> <secondConfig>')
@@ -31,4 +31,4 @@ const comm = commander
   .action((firstConfig, secondConfig) =>
     console.log(gendiff(firstConfig, secondConfig)));
 
-export default comm;
+export default gendiff;
