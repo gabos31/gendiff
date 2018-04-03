@@ -1,18 +1,20 @@
 import fs from 'fs';
 import _ from 'lodash';
-import path from 'path';
+import { extname } from 'path';
 import { safeLoad } from 'js-yaml';
+import { parse } from 'ini';
 
 const parsers = {
   '.json': JSON.parse,
   '.yaml': safeLoad,
   '.yml': safeLoad,
+  '.ini': parse,
 };
 
 const toObject = (root, data) => {
-  const ext = path.extname(root);
-  const parse = parsers[ext];
-  return parse(data);
+  const ext = extname(root);
+  const parser = parsers[ext];
+  return parser(data);
 };
 
 const gendiff = (path1, path2) => {
