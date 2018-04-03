@@ -1,11 +1,24 @@
 import commander from 'commander';
 import fs from 'fs';
 import _ from 'lodash';
-// import yaml from 'js-yaml';
+import path from 'path';
+import { safeLoad } from 'js-yaml';
+
+const parsers = {
+  '.json': JSON.parse,
+  '.yaml': safeLoad,
+  '.yml': safeLoad,
+};
+
+const parsing = (root) => {
+  const ext = path.extname(root);
+  const parse = parsers[ext];
+  return parse(fs.readFileSync(root, 'utf8'));
+};
 
 const gendiff = (path1, path2) => {
-  const obj1 = JSON.parse(fs.readFileSync(path1, 'utf8'));
-  const obj2 = JSON.parse(fs.readFileSync(path2, 'utf8'));
+  const obj1 = parsing(path1);
+  const obj2 = parsing(path2);
   const result1 = Object.keys(obj2).reduce((acc, key) => {
     if (_.has(obj1, key)) {
       if (obj2[key] === obj1[key]) {
