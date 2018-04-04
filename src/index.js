@@ -25,16 +25,16 @@ const gendiff = (path1, path2) => {
   const result = unionObjKeys.map((key) => {
     if (_.has(obj1, key) && _.has(obj2, key)) {
       if (obj1[key] === obj2[key]) {
-        return [`\n    ${key}: ${obj1[key]}`];
+        return `    ${key}: ${obj1[key]}`;
       }
-      return [`\n  + ${key}: ${obj2[key]}\n  - ${key}: ${obj1[key]}`];
+      return [`  + ${key}: ${obj2[key]}`, `  - ${key}: ${obj1[key]}`];
     }
     if (!_.has(obj1, key) && _.has(obj2, key)) {
-      return [`\n  + ${key}: ${obj2[key]}`];
+      return `  + ${key}: ${obj2[key]}`;
     }
-    return [`\n  - ${key}: ${obj1[key]}`];
-  }, []);
-  return ['{', ...result, '\n}'].join('');
+    return `  - ${key}: ${obj1[key]}`;
+  });
+  return _.flatten(['{', ...result, '}']).join('\n');
 };
 
 export default gendiff;
