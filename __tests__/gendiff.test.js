@@ -46,9 +46,16 @@ test('tree-ini test', () => {
   return expect(gendiff(path1, path2)).toBe(expectedData);
 });
 
-test('plain test', () => {
+test('plain report test', () => {
   const path1 = '__tests__/__fixtures__/tree-before.ini';
   const path2 = '__tests__/__fixtures__/tree-after.ini';
   const expectedData = readFileSync('__tests__/__fixtures__/plain.txt', 'utf8');
   return expect(gendiff(path1, path2, 'plain')).toBe(expectedData);
+});
+
+test('json report test', () => {
+  const path1 = '__tests__/__fixtures__/tree-before.ini';
+  const path2 = '__tests__/__fixtures__/tree-after.ini';
+  const expectedData = JSON.parse(readFileSync('__tests__/__fixtures__/json.json', 'utf8'));
+  return expect(JSON.parse(gendiff(path1, path2, 'json'))).toEqual(expectedData);
 });

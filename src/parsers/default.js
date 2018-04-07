@@ -26,7 +26,7 @@ const astItems = [
         ...astItemModel,
         key,
         type: 'unchanged',
-        nextValue: obj2[key],
+        nextValue: obj1[key],
       }),
     check: (obj1, obj2, key) => (_.has(obj1, key) && _.has(obj2, key)) &&
         (obj1[key] === obj2[key]),
