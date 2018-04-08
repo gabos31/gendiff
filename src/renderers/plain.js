@@ -7,13 +7,13 @@ const typeActions = {
 
 const renderItems = {
   nested: (astItem, path, render) =>
-    render(astItem.value, [...path, astItem.key]),
+    render(astItem.children, [...path, astItem.key]),
 
   unchanged: () => null,
 
   updated: (astItem, path) => `Property '${[...path, astItem.key]
     .join('.')}' was updated. From ${typeActions[astItem
-    .type](astItem.oldValue)} to ${typeActions[astItem.type](astItem.value)}`,
+    .type](astItem.oldValue)} to ${typeActions[astItem.type](astItem.newValue)}`,
 
   added: (astItem, path) => `Property '${[...path, astItem.key]
     .join('.')}' was added with ${typeActions[astItem.type](astItem.value)}`,

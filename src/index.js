@@ -15,7 +15,7 @@ const parsers = {
 const toObject = (root, data) =>
   parsers[extname(root)](data);
 
-const gendiff = (path1, path2, option = 'defaultRender') => {
+const gendiff = (path1, path2, option = 'text') => {
   const getData = source => fs.readFileSync(source, 'utf8');
   const obj1 = toObject(path1, getData(path1));
   const obj2 = toObject(path2, getData(path2));

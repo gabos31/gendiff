@@ -1,61 +1,31 @@
 import { readFileSync } from 'fs';
 import gendiff from '../src';
 
-const pathToExpected = '__tests__/__fixtures__/tobe1.txt';
 const pathToExpectedTree = '__tests__/__fixtures__/tobe2.txt';
 
-test('*.json test', () => {
-  const path1 = '__tests__/__fixtures__/before.json';
-  const path2 = '__tests__/__fixtures__/after.json';
-  const expectedData = readFileSync(pathToExpected, 'utf8');
-  return expect(gendiff(path1, path2)).toBe(expectedData);
-});
-
-test('*.yaml test', () => {
-  const path1 = '__tests__/__fixtures__/before.yml';
-  const path2 = '__tests__/__fixtures__/after.yml';
-  const expectedData = readFileSync(pathToExpected, 'utf8');
-  return expect(gendiff(path1, path2)).toBe(expectedData);
-});
-
-test('*.ini test', () => {
-  const path1 = '__tests__/__fixtures__/before.ini';
-  const path2 = '__tests__/__fixtures__/after.ini';
-  const expectedData = readFileSync(pathToExpected, 'utf8');
-  return expect(gendiff(path1, path2)).toBe(expectedData);
-});
-
-test('tree-json test', () => {
+test('text report test', () => {
   const path1 = '__tests__/__fixtures__/tree-before.json';
   const path2 = '__tests__/__fixtures__/tree-after.json';
   const expectedData = readFileSync(pathToExpectedTree, 'utf8');
-  return expect(gendiff(path1, path2)).toBe(expectedData);
-});
-
-test('tree-yaml test', () => {
-  const path1 = '__tests__/__fixtures__/tree-before.yml';
-  const path2 = '__tests__/__fixtures__/tree-after.yml';
-  const expectedData = readFileSync(pathToExpectedTree, 'utf8');
-  return expect(gendiff(path1, path2)).toBe(expectedData);
-});
-
-test('tree-ini test', () => {
-  const path1 = '__tests__/__fixtures__/tree-before.ini';
-  const path2 = '__tests__/__fixtures__/tree-after.ini';
-  const expectedData = readFileSync(pathToExpectedTree, 'utf8');
-  return expect(gendiff(path1, path2)).toBe(expectedData);
+  expect(gendiff(path1, path2)).toBe(expectedData);
+  const path3 = '__tests__/__fixtures__/tree-before.yml';
+  const path4 = '__tests__/__fixtures__/tree-after.yml';
+  expect(gendiff(path3, path4)).toBe(expectedData);
+  const path5 = '__tests__/__fixtures__/tree-before.ini';
+  const path6 = '__tests__/__fixtures__/tree-after.ini';
+  expect(gendiff(path5, path6)).toBe(expectedData);
 });
 
 test('plain report test', () => {
   const path1 = '__tests__/__fixtures__/tree-before.ini';
   const path2 = '__tests__/__fixtures__/tree-after.ini';
   const expectedData = readFileSync('__tests__/__fixtures__/plain.txt', 'utf8');
-  return expect(gendiff(path1, path2, 'plain')).toBe(expectedData);
+  expect(gendiff(path1, path2, 'plain')).toBe(expectedData);
 });
 
 test('json report test', () => {
   const path1 = '__tests__/__fixtures__/tree-before.ini';
   const path2 = '__tests__/__fixtures__/tree-after.ini';
   const expectedData = JSON.parse(readFileSync('__tests__/__fixtures__/json.json', 'utf8'));
-  return expect(JSON.parse(gendiff(path1, path2, 'json'))).toEqual(expectedData);
+  expect(JSON.parse(gendiff(path1, path2, 'json'))).toEqual(expectedData);
 });

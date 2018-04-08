@@ -11,13 +11,13 @@ const stringify = (value, n) => {
 
 const renderItems = {
   nested: (astItem, n, render) =>
-    `${' '.repeat(n)}${astItem.key}: ${render(astItem.value, n + 4)}`,
+    `${' '.repeat(n)}${astItem.key}: ${render(astItem.children, n + 4)}`,
 
   unchanged: (astItem, n) =>
     `${' '.repeat(n)}${astItem.key}: ${stringify(astItem.value, n)}`,
 
   updated: (astItem, n) =>
-    [`${' '.repeat(n - 2)}+ ${astItem.key}: ${stringify(astItem.value, n)}`,
+    [`${' '.repeat(n - 2)}+ ${astItem.key}: ${stringify(astItem.newValue, n)}`,
       `${' '.repeat(n - 2)}- ${astItem.key}: ${stringify(astItem.oldValue, n)}`],
 
   added: (astItem, n) =>

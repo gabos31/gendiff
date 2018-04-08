@@ -3,7 +3,7 @@ import _ from 'lodash';
 const astItems = [
   {
     item: (key, obj1, obj2, parser) =>
-      ({ key, type: 'nested', value: parser(obj1[key], obj2[key]) }),
+      ({ key, type: 'nested', children: parser(obj1[key], obj2[key]) }),
     check: (obj1, obj2, key) => (_.has(obj1, key) && _.has(obj2, key)) &&
         (_.isObject(obj1[key]) && _.isObject(obj2[key])),
   },
@@ -14,7 +14,7 @@ const astItems = [
   },
   {
     item: (key, obj1, obj2) => ({
-      key, type: 'updated', value: obj2[key], oldValue: obj1[key],
+      key, type: 'updated', newValue: obj2[key], oldValue: obj1[key],
     }),
     check: (obj1, obj2, key) => _.has(obj1, key) && _.has(obj2, key),
   },

@@ -1,7 +1,5 @@
 [{
-	"key": "common",
-	"type": "nested",
-	"value": [{
+	"children": [{
 		"key": "setting1",
 		"type": "unchanged",
 		"value": "Value 1"
@@ -11,15 +9,13 @@
 		"value": "200"
 	}, {
 		"key": "setting3",
-		"oldValue": true,
-		"type": "updated",
-		"value": {
+		"newValue": {
 			"key": "value"
-		}
+		},
+		"oldValue": true,
+		"type": "updated"
 	}, {
-		"key": "setting6",
-		"type": "nested",
-		"value": [{
+		"children": [{
 			"key": "key",
 			"type": "unchanged",
 			"value": "value"
@@ -27,7 +23,9 @@
 			"key": "ops",
 			"type": "added",
 			"value": "vops"
-		}]
+		}],
+		"key": "setting6",
+		"type": "nested"
 	}, {
 		"key": "setting4",
 		"type": "added",
@@ -38,27 +36,29 @@
 		"value": {
 			"key5": "value5"
 		}
-	}]
+	}],
+	"key": "common",
+	"type": "nested"
 }, {
-	"key": "group1",
-	"type": "nested",
-	"value": [{
+	"children": [{
 		"key": "baz",
+		"newValue": "bars",
 		"oldValue": "bas",
-		"type": "updated",
-		"value": "bars"
+		"type": "updated"
 	}, {
 		"key": "foo",
 		"type": "unchanged",
 		"value": "bar"
 	}, {
 		"key": "nest",
+		"newValue": "str",
 		"oldValue": {
 			"key": "value"
 		},
-		"type": "updated",
-		"value": "str"
-	}]
+		"type": "updated"
+	}],
+	"key": "group1",
+	"type": "nested"
 }, {
 	"key": "group2",
 	"type": "removed",
