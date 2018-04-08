@@ -32,7 +32,7 @@ const getAstItem = (obj1, obj2, key) =>
   _.find(astItems, ({ check }) => check(obj1, obj2, key));
 
 const parse = (object1, object2) => {
-  const unionObjectKeys = _.union(Object.keys(object1), Object.keys(object2));
+  const unionObjectKeys = _.union(_.keys(object1), _.keys(object2));
   return unionObjectKeys.map((key) => {
     const { item } = getAstItem(object1, object2, key);
     return item(key, object1, object2, parse);

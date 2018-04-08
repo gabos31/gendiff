@@ -4,7 +4,7 @@ const stringify = (value, n) => {
   if (!_.isObject(value)) {
     return value;
   }
-  const arr = Object.keys(value).map(key =>
+  const arr = _.keys(value).map(key =>
     `${' '.repeat(n + 4)}${[key]}: ${value[key]}`);
   return ['{', ...arr, `${' '.repeat(n)}}`].join('\n');
 };
