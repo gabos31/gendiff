@@ -1,37 +1,22 @@
 import _ from 'lodash';
 
-const actions = [
-  {
-    check: (type, value) => value instanceof Object,
-    action: () => 'complex value',
-  },
-  {
-    check: type => type === 'updated',
-    action: value => `'${value}'`,
-  },
-  {
-    check: type => type === 'added',
-    action: value => `value: '${value}'`,
-  },
-];
+const typeActions = {
+  updated: value => (_.isObject(value) ? 'complex value' : `'${value}'`),
+  added: value => (_.isObject(value) ? 'complex value' : `value: '${value}'`),
+};
 
-const getAction = (type, value) =>
-  _.find(actions, ({ check }) => check(type, value));
-
-const plainRenderItems = {
+const renderItems = {
   nested: (astItem, path, render) =>
-    astItem.children.map(child => render(child, [...path, astItem.key])),
+    render(astItem.value, [...path, astItem.key]),
 
   unchanged: () => null,
 
   updated: (astItem, path) => `Property '${[...path, astItem.key]
-    .join('.')}' was updated. From ${getAction(astItem.type, astItem.previousValue)
-    .action(astItem.previousValue)} to ${getAction(astItem.type, astItem.nextValue)
-    .action(astItem.nextValue)}`,
+    .join('.')}' was updated. From ${typeActions[astItem
+    .type](astItem.oldValue)} to ${typeActions[astItem.type](astItem.value)}`,
 
   added: (astItem, path) => `Property '${[...path, astItem.key]
-    .join('.')}' was added with ${getAction(astItem.type, astItem.nextValue)
-    .action(astItem.nextValue)}`,
+    .join('.')}' was added with ${typeActions[astItem.type](astItem.value)}`,
 
   removed: (astItem, path) =>
     `Property '${[...path, astItem.key].join('.')}' was removed`,
@@ -39,7 +24,7 @@ const plainRenderItems = {
 
 const render = (ast, path = []) => {
   const resultArr = ast.map(astItem =>
-    plainRenderItems[astItem.type](astItem, path, render));
+    renderItems[astItem.type](astItem, path, render));
   return _.compact(resultArr).join('\n');
 };
 

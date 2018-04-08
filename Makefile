@@ -8,3 +8,5 @@ lint:
 	npm run eslint .
 test:
 	npm test
+watch:
+	node_modules/jest/bin/jest.js --watch

@@ -1,40 +1,36 @@
 import _ from 'lodash';
 
-const stringify = (item, indent1, indent2) => {
-  if (!(item instanceof Object)) {
-    return item;
+const stringify = (value, n) => {
+  if (!_.isObject(value)) {
+    return value;
   }
-  const arr = Object.keys(item).map(key =>
-    `${indent2}${[key]}: ${item[key]}`);
-  return ['{', ...arr, `${indent1}}`].join('\n');
+  const arr = Object.keys(value).map(key =>
+    `${' '.repeat(n + 4)}${[key]}: ${value[key]}`);
+  return ['{', ...arr, `${' '.repeat(n)}}`].join('\n');
 };
 
-const four = n => '    '.repeat(n);
-const two = n => '  '.repeat(n);
+const renderItems = {
+  nested: (astItem, n, render) =>
+    `${' '.repeat(n)}${astItem.key}: ${render(astItem.value, n + 4)}`,
 
-const defaultRenderItems = {
-  nested: (astItem, a, c, b, d, render) =>
-    `${four(a)}${astItem.key}: ${astItem.children.map(child =>
-      render(child, a + 1, b + 2, c + 1, d + 1))}`,
+  unchanged: (astItem, n) =>
+    `${' '.repeat(n)}${astItem.key}: ${stringify(astItem.value, n)}`,
 
-  unchanged: (astItem, a, c) =>
-    `${four(a)}${astItem.key}: ${stringify(astItem.nextValue, four(a), four(c))}`,
+  updated: (astItem, n) =>
+    [`${' '.repeat(n - 2)}+ ${astItem.key}: ${stringify(astItem.value, n)}`,
+      `${' '.repeat(n - 2)}- ${astItem.key}: ${stringify(astItem.oldValue, n)}`],
 
-  updated: (astItem, a, c, b) =>
-    [`${two(b)}+ ${astItem.key}: ${stringify(astItem.nextValue, four(a), four(c))}`,
-      `${two(b)}- ${astItem.key}: ${stringify(astItem.previousValue, four(a), four(c))}`],
+  added: (astItem, n) =>
+    `${' '.repeat(n - 2)}+ ${astItem.key}: ${stringify(astItem.value, n)}`,
 
-  added: (astItem, a, c, b) =>
-    `${two(b)}+ ${astItem.key}: ${stringify(astItem.nextValue, four(a), four(c))}`,
-
-  removed: (astItem, a, c, b) =>
-    `${two(b)}- ${astItem.key}: ${stringify(astItem.previousValue, four(a), four(c))}`,
+  removed: (astItem, n) =>
+    `${' '.repeat(n - 2)}- ${astItem.key}: ${stringify(astItem.value, n)}`,
 };
 
-const render = (ast, a = 1, b = 1, c = 2, d = 0) => {
+const render = (ast, n = 4) => {
   const resultArr = ast.map(astItem =>
-    defaultRenderItems[astItem.type](astItem, a, c, b, d, render));
-  return _.flatten(['{', ...resultArr, `${four(d)}}`]).join('\n');
+    renderItems[astItem.type](astItem, n, render));
+  return _.flatten(['{', ...resultArr, `${' '.repeat(n - 4)}}`]).join('\n');
 };
 
 export default render;
