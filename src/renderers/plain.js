@@ -9,8 +9,6 @@ const renderItems = {
   nested: (astItem, path, render) =>
     render(astItem.children, [...path, astItem.key]),
 
-  unchanged: () => null,
-
   updated: (astItem, path) => `Property '${[...path, astItem.key]
     .join('.')}' was updated. From ${typeActions[astItem
     .type](astItem.oldValue)} to ${typeActions[astItem.type](astItem.newValue)}`,
@@ -23,9 +21,9 @@ const renderItems = {
 };
 
 const render = (ast, path = []) => {
-  const resultArr = ast.map(astItem =>
-    renderItems[astItem.type](astItem, path, render));
-  return _.compact(resultArr).join('\n');
+  const resultArr = ast.filter(({ type }) => type !== 'unchanged')
+    .map(astItem => renderItems[astItem.type](astItem, path, render));
+  return resultArr.join('\n');
 };
 
 export default render;
