@@ -2,5 +2,4 @@
 *.log
 dist
 jsconfig.json
-.vscode
 coverage
