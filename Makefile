@@ -10,3 +10,5 @@ test:
 	npm test
 watch:
 	node_modules/jest/bin/jest.js --watch
+test-coverage:
+	node_modules/jest/bin/jest.js --coverage
