@@ -9,6 +9,6 @@ lint:
 test:
 	npm test
 watch:
-	node_modules/jest/bin/jest.js --watch
+	npm test -- --watch
 test-coverage:
-	node_modules/jest/bin/jest.js --coverage
+	npm test -- --coverage

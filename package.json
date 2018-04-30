@@ -7,7 +7,7 @@
     "gendiff": "dist/bin/gendiff.js"
   },
   "scripts": {
-    "test": "jest --coverage",
+    "test": "jest",
     "babel-node": "babel-node",
     "prepublishOnly": "npm run build",
     "eslint": "eslint",
