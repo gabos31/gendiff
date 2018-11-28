@@ -1,8 +1,8 @@
 # Difference Generator
 
 [![Build Status](https://travis-ci.org/gabos31/gendiff.svg?branch=master)](https://travis-ci.org/gabos31/gendiff)
-[![Maintainability](https://api.codeclimate.com/v1/badges/354923419afb286ac793/maintainability)](https://codeclimate.com/github/gabos31/gendiff/maintainability)
-[![Test Coverage](https://api.codeclimate.com/v1/badges/354923419afb286ac793/test_coverage)](https://codeclimate.com/github/gabos31/gendiff/test_coverage)
+[![Maintainability](https://api.codeclimate.com/v1/badges/acbc9bf870776a6754c2/maintainability)](https://codeclimate.com/github/gabos31/gendiff/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/acbc9bf870776a6754c2/test_coverage)](https://codeclimate.com/github/gabos31/gendiff/test_coverage)
 
 ***
 ## Description
