@@ -1,6 +1,6 @@
 {
   "name": "cli-g31",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "cli-g31",
   "main": "dist/index.js",
   "bin": {
@@ -23,7 +23,7 @@
   "license": "ISC",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/gabos31/project-lvl2-s237.git"
+    "url": "git+https://github.com/gabos31/gendiff.git"
   },
   "devDependencies": {
     "babel-cli": "*",
