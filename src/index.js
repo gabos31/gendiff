@@ -12,11 +12,10 @@ const parsers = {
   '.ini': ini.parse,
 };
 
-const toObject = (root, data) =>
-  parsers[extname(root)](data);
+const toObject = (root, data) => parsers[extname(root)](data);
 
 const gendiff = (path1, path2, format = 'text') => {
-  const getData = source => fs.readFileSync(source, 'utf8');
+  const getData = (source) => fs.readFileSync(source, 'utf8');
   const obj1 = toObject(path1, getData(path1));
   const obj2 = toObject(path2, getData(path2));
   return renderers[format](astParse(obj1, obj2));

@@ -4,32 +4,25 @@ const stringify = (value, n) => {
   if (!_.isObject(value)) {
     return value;
   }
-  const arr = _.keys(value).map(key =>
-    `${' '.repeat(n + 4)}${[key]}: ${value[key]}`);
+  const arr = _.keys(value).map((key) => `${' '.repeat(n + 4)}${[key]}: ${value[key]}`);
   return ['{', ...arr, `${' '.repeat(n)}}`].join('\n');
 };
 
 const renderItems = {
-  nested: (astItem, n, render) =>
-    `${' '.repeat(n)}${astItem.key}: ${render(astItem.children, n + 4)}`,
+  nested: (astItem, n, render) => `${' '.repeat(n)}${astItem.key}: ${render(astItem.children, n + 4)}`,
 
-  unchanged: (astItem, n) =>
-    `${' '.repeat(n)}${astItem.key}: ${stringify(astItem.value, n)}`,
+  unchanged: (astItem, n) => `${' '.repeat(n)}${astItem.key}: ${stringify(astItem.value, n)}`,
 
-  updated: (astItem, n) =>
-    [`${' '.repeat(n - 2)}+ ${astItem.key}: ${stringify(astItem.newValue, n)}`,
-      `${' '.repeat(n - 2)}- ${astItem.key}: ${stringify(astItem.oldValue, n)}`],
+  updated: (astItem, n) => [`${' '.repeat(n - 2)}+ ${astItem.key}: ${stringify(astItem.newValue, n)}`,
+    `${' '.repeat(n - 2)}- ${astItem.key}: ${stringify(astItem.oldValue, n)}`],
 
-  added: (astItem, n) =>
-    `${' '.repeat(n - 2)}+ ${astItem.key}: ${stringify(astItem.value, n)}`,
+  added: (astItem, n) => `${' '.repeat(n - 2)}+ ${astItem.key}: ${stringify(astItem.value, n)}`,
 
-  removed: (astItem, n) =>
-    `${' '.repeat(n - 2)}- ${astItem.key}: ${stringify(astItem.value, n)}`,
+  removed: (astItem, n) => `${' '.repeat(n - 2)}- ${astItem.key}: ${stringify(astItem.value, n)}`,
 };
 
 const render = (ast, n = 4) => {
-  const resultArr = ast.map(astItem =>
-    renderItems[astItem.type](astItem, n, render));
+  const resultArr = ast.map((astItem) => renderItems[astItem.type](astItem, n, render));
   return _.flatten(['{', ...resultArr, `${' '.repeat(n - 4)}}`]).join('\n');
 };
 
